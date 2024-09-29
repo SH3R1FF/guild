@@ -7,5 +7,8 @@ export const projectFormSchema = z.object({
     categoryId: z.string(),
     url: z.string().url(),
     codeUrl: z.string().url(),
+    creator: z.string().min(3, 'Creator must have atleast 3 characters'),
+    email: z.string().email(),
+    userId: z.string()
 })
   

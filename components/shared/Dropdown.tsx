@@ -19,9 +19,9 @@ const Dropdown = ({value,onChangeHandler}: DropDownProps) => {
             <SelectValue placeholder="Category" />
         </SelectTrigger>
         <SelectContent>
-            <SelectItem value="light">Web Development</SelectItem>
-            <SelectItem value="dark">UI/UX</SelectItem>
-            <SelectItem value="system">Artificial Intelligence</SelectItem>
+            <SelectItem value="web dev">Web Development</SelectItem>
+            <SelectItem value="ui/ux">UI/UX</SelectItem>
+            <SelectItem value="ai">Artificial Intelligence</SelectItem>
         </SelectContent>
     </Select>
 

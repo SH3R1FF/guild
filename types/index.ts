@@ -25,6 +25,8 @@ export type CreateUserParams = {
       categoryId: string
       url: string
       codeUrl: string
+      creator: string
+      email:string
     }
     path: string
   }
@@ -39,6 +41,8 @@ export type CreateUserParams = {
       categoryId: string
       url: string
       codeUrl: string
+      creator: string
+      email:string
     }
     path: string
   }
