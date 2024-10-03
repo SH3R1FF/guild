@@ -1,13 +1,27 @@
-'use client'
-
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import Lottie from 'react-lottie-player'
-import Hero  from '../../public/assets/hero.json'
-import Hero2  from '../../public/assets/hero2.json'
+import Collection from "@/components/shared/Collection";
+import { getAllProjects } from "@/lib/actions/project.actions";
+import HeroLottie from "@/components/shared/HeroLottie";
+import Search from "@/components/shared/Search";
+import { SearchParamProps } from "@/types";
+import CategoryFilter from "@/components/shared/CategoryFilter";
 
-export default function Home() {
+export default async function Home({ searchParams }: SearchParamProps) {
+
+  const page = Number(searchParams?.page) || 1;
+  const searchText = (searchParams?.query as string) || '';
+  const category = (searchParams?.category as string) || '';
+
+  const projects = await getAllProjects({
+    query: searchText,
+    category,
+    page,
+    limit: 6
+  });
+
+
   return (
     <>
       <section className="bg-primary-50  bg-contain py-5 md:py-10 ">
@@ -22,23 +36,9 @@ export default function Home() {
             </Button> 
           </div>
 
-          {/* to add hero image */}
-          {/* <h1 className="max-h-[70h] object-contain object-center 2xl:max-h-[50h] ">IMAGE</h1> */}
-          {/* <Image
-            src="/assets/images/hero.png"
-            alt="hero"
-            width={1000}
-            height={1000}
-          /> */}
           <div className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:py-10">
-            <Lottie
-              loop
-              animationData={Hero2}
-              play
-              // style={}
-              className="sm:max-w-[70vh] max-w-[40vh] object-contain object-center overflow-hidden"
-              />
-            </div>
+            <HeroLottie/>
+          </div>
         </div>
       </section>
 
@@ -48,9 +48,20 @@ export default function Home() {
         </h2>
 
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          Search
-          CategoryFilter
+          <Search/>
+          <CategoryFilter/>
         </div>
+
+        <Collection
+          data={projects?.data}
+          emptyTitle="No Projects Found"
+          emptyStateSubtext="Come back later"
+          collectionType="All_Projects"
+          limit={6}
+          page={page}
+          totalPages={projects?.totalPages}
+        />
+        
       </section>
     </>
   );

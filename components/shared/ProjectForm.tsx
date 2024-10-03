@@ -13,17 +13,35 @@ import { Textarea } from "@/components/ui/textarea"
 import {FileUploader} from "./FileUploader"
 import { useState } from "react"
 import Image from "next/image"
-
+import { useUploadThing } from "@/lib/uploadthing"
+import { useRouter } from "next/navigation"
+import { createProject, updateProject } from "@/lib/actions/project.actions"
+import { IProject } from "@/lib/database/models/project.model"
+import { Github, Loader, Loader2, Mail, NotebookPen, Pencil } from "lucide-react"
 
 type ProjectFormProps = {
     userId: string
     type: "Add" | "Update"
-}
+    project?: IProject
+    projectId?: string
+}        
 
-const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
+
+const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) => {
  
   const [files, setFiles] = useState<File[]>([])
-  const initialValues = projectDefaultValues;
+  const initialValues = project && type === 'Update' 
+  ? {
+    ...project,
+    creator: project.creator._id,
+    // creatorName: project.creator.firstName
+
+  }
+  : projectDefaultValues;
+
+  const { startUpload } = useUploadThing('imageUploader')
+
+  const router = useRouter()  
 
   const form = useForm<z.infer<typeof projectFormSchema>>({
     resolver: zodResolver(projectFormSchema),
@@ -31,10 +49,66 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof projectFormSchema>) {
+  async function onSubmit(values: z.infer<typeof projectFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values)
+
+    let uploadedImageUrl = values.imageUrl;
+
+    if (files.length > 0) {
+      const uploadedImages = await startUpload(files) 
+      
+      if(!uploadedImages){
+        return
+      }
+
+      uploadedImageUrl = uploadedImages[0].url
+
+    }
+
+    if(type === 'Add') {
+      try {
+
+        const newProject = await createProject({
+          project: { ...values, imageUrl: uploadedImageUrl },
+          userId,
+          path: '/profile'
+        })
+
+        if(newProject) {
+          form.reset();
+          router.push(`/projects/${newProject._id}`)
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if(type === 'Update') {
+
+      if(!projectId) {
+        router.back()
+        return;
+      }
+
+      try {
+        const updatedProject = await updateProject({
+          userId,
+          project: { ...values, imageUrl: uploadedImageUrl, _id: projectId },
+          path: `/projects/${projectId}`
+        })
+
+        if(updatedProject) {
+          form.reset();
+          router.push(`/projects/${updatedProject._id}`)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+  
   }
 
   return (
@@ -48,8 +122,8 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
           render={({ field }) => (
             <FormItem className="w-full">
               <FormControl>
-                <Input placeholder="Project Title" {...field} className="input-field" />
-              </FormControl>
+                  <Input placeholder="Project Title" {...field} className="input-field max-sm:text-[16px]" value={field.value ?? ""}/>
+              </FormControl> 
               <FormMessage />
             </FormItem>
           )}
@@ -58,9 +132,9 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
           control={form.control}
           name="categoryId"
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="w-full ">
               <FormControl>
-                <Dropdown onChangeHandler={field.onChange} value={field.value} />
+                <Dropdown onChangeHandler={field.onChange} value={field.value}/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -75,7 +149,7 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl className="h-72">
-                  <Textarea placeholder="Description" {...field} className="textarea rounded-2xl" />
+                    <Textarea placeholder="Description" {...field} className="textarea rounded-2xl max-sm:text-[15px]" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -113,7 +187,7 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
                       width={24}
                       height={24}
                     />
-                    <Input placeholder="Project Live URL" {...field} className="input-field" />
+                    <Input placeholder="Project Live URL" {...field} className="input-field text-indigo-800 max-sm:text-[13px] lg:text-[16px]" />
                   </div>
 
                 </FormControl>
@@ -128,13 +202,14 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <Image
-                      src='/assets/icons/link.svg'
-                      alt="link"
+    
+                    <Github 
+                      className=" text-neutral-500"
                       width={24}
                       height={24}
+
                     />
-                    <Input placeholder="Project Github URL" {...field} className="input-field" />
+                    <Input placeholder="Project Github URL" {...field} className="input-field text-indigo-800 max-sm:text-[13px] lg:text-[16px] "/>
                   </div>
 
                 </FormControl>
@@ -145,27 +220,66 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
         </div>
 
         <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-              control={form.control}
-              name="creator"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormControl>
-                    <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image
-                        src='/assets/icons/link.svg'
-                        alt="link"
-                        width={24}
-                        height={24}
-                      />
-                      <Input placeholder="Creator Name" {...field} className="input-field" />
-                    </div>
 
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+          {/* Hidden Input */}
+
+          {/* <div className="hidden"> 
+            <FormField
+              control={form.control}
+              name="creator" 
+              render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <Input placeholder="Creator Name" {...field}  className="input-field" type="hidden" />
+                    </FormControl>
+                  </FormItem>
               )}
               />
+          </div> 
+
+          <FormField
+                control={form.control}
+                name="creatorName"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                        <Image
+                          src='/assets/icons/link.svg'
+                          alt="link"
+                          width={24}
+                          height={24}
+                          />
+                        <Input placeholder="Creator Name"{...field} className="input-field" />
+                      </div>
+
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+          /> */}
+          {/* <FormField
+                control={form.control}
+                name="creator"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                        <Image
+                          src='/assets/icons/link.svg'
+                          alt="link"
+                          width={24}
+                          height={24}
+                          />
+                        <Input placeholder="Creator Name"{...field} className="input-field" />
+                      </div>
+
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+          /> */}
+
           <FormField
               control={form.control}
               name="email"
@@ -173,13 +287,15 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
                 <FormItem className="w-full">
                   <FormControl>
                     <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      <Image
+                      {/* <Image
                         src='/assets/icons/link.svg'
                         alt="link"
                         width={24}
                         height={24}
-                      />
-                      <Input placeholder="Email Address" {...field} className="input-field" />
+                      /> */}
+                      <Mail className=" text-neutral-500" width={24}
+                        height={24} />
+                      <Input placeholder="Email Address" {...field} className="input-field max-sm:text-[13px] lg:text-[16px]" />
                     </div>
 
                   </FormControl>
@@ -187,7 +303,10 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
                 </FormItem>
               )}
               />
-        </div>
+        
+      
+      </div>
+
 
       <Button 
         type="submit" 
@@ -196,7 +315,12 @@ const ProjectForm = ({ userId, type }: ProjectFormProps ) => {
         className="button col-span-2 w-full"
         >
           {form.formState.isSubmitting ? (
-            "Submitting..."
+            <div className="flex items-center justify-center ">
+              
+              Submitting 
+              <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+              {/* "Submitting..." */}
+            </div>
           ) : `${type} Project`
           
           }</Button>

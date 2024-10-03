@@ -9,26 +9,12 @@ export function cn(...inputs: ClassValue[]) {
 
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file)
 
-// export function formUrlQuery({ params, key, value }: UrlQueryParams) {
-//   const currentUrl = qs.parse(params)
-
-//   currentUrl[key] = value
-
-//   return qs.stringifyUrl(
-//     {
-//       url: window.location.pathname,
-//       query: currentUrl,
-//     },
-//     { skipNull: true }
-//   )
-// }
-
 export function formUrlQuery({ params, key, value }: UrlQueryParams) {
   const currentUrl = qs.parse(params)
 
-  currentUrl[key] = value ?? ''
+  currentUrl[key] = value
 
-  return qs.stringify(
+  return qs.stringifyUrl(
     {
       url: window.location.pathname,
       query: currentUrl,
@@ -44,7 +30,7 @@ export function removeKeysFromQuery({ params, keysToRemove }: RemoveUrlQueryPara
     delete currentUrl[key]
   })
 
-  return qs.stringify(
+  return qs.stringifyUrl(
     {
       url: window.location.pathname,
       query: currentUrl,

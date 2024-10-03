@@ -9,7 +9,7 @@ export const headerLinks = [
     },
     {
         label: 'My Profile' ,
-        route: '/my-profile' ,
+        route: '/profile' ,
     },
 ]
 
@@ -19,4 +19,7 @@ export const projectDefaultValues = {
     imageUrl: '',
     categoryId: '',
     url: '',
+    codeUrl: '',
+    creator: '',
+    email: '',
   }

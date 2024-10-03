@@ -13,7 +13,6 @@ export const connectToDatabase = async () => {
         dbName: 'guild',
         bufferCommands: false,
     })
-    console.log(MONGODB_URI);
 
     cached.conn = await cached.promise;
 
