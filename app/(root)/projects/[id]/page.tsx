@@ -64,19 +64,17 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
             <div className="flex flex-col gap-5">
               <div className='flex gap-2 md:gap-3 items-center'>
           
-                <Clock color="#4252cd" width={22} height={22}/>
-                <div className="p-medium-16 lg:p-regular-20 ">
-              
-                  {/* <p className='text-neutral-600 italic '>Created at {formattedDate}</p> */}
-
-                  <p className=''>Created at {formattedDate}</p>
+                <Clock color="#4252cd" width={22} height={22} className='h-[20px] w-[20px]'/>
+                <div className="p-medium-14  lg:p-regular-18">
+                  <p>Created at {formattedDate}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 md:gap-3">
-                <Mail color="#4252cd" width={22} height={22} />
-                <p className="p-medium-16 lg:p-regular-20 ">
-                  {project.email}</p>
+                <Mail color="#4252cd" width={22} height={22} className='h-[20px] w-[20px]'/>
+                <div className="p-medium-14 lg:p-regular-18">
+                  <p>{project.email}</p>
+                </div>
               </div>
             </div>
 
@@ -88,7 +86,7 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
 
             <div className="flex items-center gap-2 md:gap-3 mt-4">
 
-              <Button asChild className='bg-indigo-600 hover:bg-indigo-700 text-white'>
+              <Button asChild className='bg-primary-500/90 hover:bg-primary-500/100 text-white'>
                 <Link href={project.url} target='_blank'> 
                   <Link2 className="mr-2 h-5 w-5" /> Visit
                 </Link>

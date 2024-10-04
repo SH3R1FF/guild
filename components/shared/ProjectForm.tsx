@@ -17,7 +17,7 @@ import { useUploadThing } from "@/lib/uploadthing"
 import { useRouter } from "next/navigation"
 import { createProject, updateProject } from "@/lib/actions/project.actions"
 import { IProject } from "@/lib/database/models/project.model"
-import { Github, Loader, Loader2, Mail, NotebookPen, Pencil } from "lucide-react"
+import { Github, Loader2, Mail } from "lucide-react"
 
 type ProjectFormProps = {
     userId: string
