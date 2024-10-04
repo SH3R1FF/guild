@@ -10,8 +10,10 @@ import Image from "next/image"
 import menu from "@/public/assets/icons/menu.svg"
 import { Separator } from "@/components/ui/separator"
 import NavItems from "./NavItems"
-import logo from '@/public/assets/logo.png'
 import Link from "next/link"
+import {  Dela_Gothic_One } from "next/font/google"
+
+const gothic = Dela_Gothic_One({ subsets: ['latin'], weight: ['400']  })
 
 const MobileNav = () => {
   return (
@@ -27,14 +29,13 @@ const MobileNav = () => {
         />
       </SheetTrigger>
       <SheetContent className="flex flex-col gap-6 bg-white md:hidden ">
-          <Link href="/" className="w-36">
-            <Image 
-              src={logo} 
-              width={128} 
-              height={38}
-              alt="Guild"
-              />
-          </Link>
+      <Link href="/" className="w-fit">
+            <div className="flex items-center justify-center bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] lg:text-3xl text-3xl font-bold text-white rounded-md px-3 py-1"> 
+              <p className={` ${gothic.className} ] text-white`}>
+                GUILD
+              </p>
+            </div>    
+        </Link>
         <Separator className="border border-gray-50 "/>
         <NavItems/>
       </SheetContent>

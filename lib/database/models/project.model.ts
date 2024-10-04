@@ -10,7 +10,7 @@ export interface IProject extends Document {
     codeUrl?: string;
     email: string;
     category: { _id: string, name: string }
-    creator: { _id:string, firstName:string}
+    creator: { _id:string, firstName:string }
 }
 
 const ProjectSchema = new Schema({

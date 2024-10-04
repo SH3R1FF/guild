@@ -10,7 +10,7 @@ const HeroLottie = () => {
         loop
         animationData={Hero2}
         play
-        className="sm:max-w-[70vh] max-w-[40vh] object-contain object-center overflow-hidden"
+        className="sm:max-w-[70vh] max-w-[40vh] object-contain object-center overflow-hidden "
     />
     </>
   )

@@ -11,9 +11,11 @@ import img from '@/public/assets/icons/upload.svg'
 import Image from 'next/image'
 
 
+// In FileUploader.tsx
+
 type FileUploaderProps = {
   onFieldChange: (url: string) => void
-  imageUrl: string
+  imageUrl: string | undefined 
   setFiles: Dispatch<SetStateAction<File[]>>
 }
 
@@ -25,7 +27,8 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }: FileUploader
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'image/*' ? generateClientDropzoneAccept(['image/*']) : undefined,
+    // accept: 'image/*' ? generateClientDropzoneAccept(['image/*']) : undefined,
+    accept: generateClientDropzoneAccept(['image/*']),
   })
 
   return (
@@ -49,7 +52,7 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }: FileUploader
           <Image src={img} width={77} height={77} alt="file upload" />
           <h3 className="mb-2 mt-2">Drag photo here</h3>
           <p className="p-medium-12 mb-4">SVG, PNG, JPG</p>
-          <Button type="button" className="rounded-full">
+          <Button type="button" className="rounded-full ">
             Select from computer
           </Button>
         </div>

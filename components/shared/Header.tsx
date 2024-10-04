@@ -3,9 +3,9 @@ import Link from "next/link"
 import { Button } from "../ui/button"
 import NavItems from "./NavItems"
 import MobileNav from "./MobileNav"
-import Image from "next/image"
-import logo from '@/public/assets/logo.png'
+import {  Dela_Gothic_One } from "next/font/google"
 
+const gothic = Dela_Gothic_One({ subsets: ['latin'], weight: ['400']  })
 const Header = () => {
 
   const buttonStyles = {
@@ -19,13 +19,13 @@ const Header = () => {
   return (
     <header className='w-full border-b '>
       <div className="wrapper flex items-center justify-between">
-        <Link href="/" className="w-36">
-          <Image 
-            src={logo} 
-            width={128} 
-            height={38}
-            alt="Guild"
-            />
+        <Link href="/" className="w-fit">
+      {/* -#ddfc74 yellowish -#00bb81 greenish */}
+            <div className="flex items-center justify-center bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] lg:text-3xl text-3xl font-bold text-white rounded-md px-3 py-1"> 
+              <p className={` ${gothic.className} ] text-white`}>
+                GUILD
+              </p>
+            </div>    
         </Link>
 
         <SignedIn>
@@ -36,12 +36,12 @@ const Header = () => {
 
         <div className="flex w-32 justify-end gap-3 ">
           <SignedIn>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton afterSignOutUrl="/"/>
             <MobileNav/>
           </SignedIn>
 
           <SignedOut >
-            <Button asChild className="rounded-full" size="lg">
+            <Button asChild className="rounded-full bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)]" size={"lg"}>
               <Link href="/sign-in">
                 Login
               </Link>

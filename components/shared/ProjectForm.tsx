@@ -33,9 +33,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
   const initialValues = project && type === 'Update' 
   ? {
     ...project,
-    creator: project.creator._id,
-    // creatorName: project.creator.firstName
-
+    // creator: project.creator._id,
   }
   : projectDefaultValues;
 
@@ -52,38 +50,44 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
   async function onSubmit(values: z.infer<typeof projectFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    console.log("Submit triggered"); // Debug log
+    console.log("Form values:", values);
 
     let uploadedImageUrl = values.imageUrl;
 
     if (files.length > 0) {
-      const uploadedImages = await startUpload(files) 
+      const uploadedImages = await startUpload(files);
+      console.log("Uploaded images:", uploadedImages); // Check if images upload successfully
       
-      if(!uploadedImages){
-        return
+      if (!uploadedImages) {
+        console.log("Upload failed");
+        return;
       }
-
-      uploadedImageUrl = uploadedImages[0].url
-
+      uploadedImageUrl = uploadedImages[0].url;
     }
 
-    if(type === 'Add') {
+  
+
+    if (type === "Add") {
       try {
-
+        console.log("Attempting to create project...");
         const newProject = await createProject({
-          project: { ...values, imageUrl: uploadedImageUrl },
           userId,
-          path: '/profile'
-        })
-
-        if(newProject) {
+          project: { ...values, imageUrl: uploadedImageUrl || '' },
+          path: '/profile',
+        });
+  
+        if (newProject) {
+          console.log("Project created:", newProject);
           form.reset();
-          router.push(`/projects/${newProject._id}`)
+          router.push(`/projects/${newProject._id}`);
         }
-
       } catch (error) {
-        console.log(error);
+        console.error("Error creating project:", error);
       }
     }
+
+    
 
     if(type === 'Update') {
 
@@ -95,7 +99,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
       try {
         const updatedProject = await updateProject({
           userId,
-          project: { ...values, imageUrl: uploadedImageUrl, _id: projectId },
+          project: { ...values, imageUrl: uploadedImageUrl || '', _id: projectId },
           path: `/projects/${projectId}`
         })
 
@@ -163,7 +167,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
                 <FormControl className="h-72">
                   <FileUploader
                     onFieldChange={field.onChange}
-                    imageUrl={field.value}
+                    imageUrl={field.value ?? ''}
                     setFiles={setFiles}
                   />
                 </FormControl>
@@ -187,7 +191,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
                       width={24}
                       height={24}
                     />
-                    <Input placeholder="Project Live URL" {...field} className="input-field text-indigo-800 max-sm:text-[13px] lg:text-[16px]" />
+                    <Input placeholder="Project Live URL" {...field} className="input-field text-primary max-sm:text-[13px] lg:text-[16px]" />
                   </div>
 
                 </FormControl>
@@ -209,7 +213,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
                       height={24}
 
                     />
-                    <Input placeholder="Project Github URL" {...field} className="input-field text-indigo-800 max-sm:text-[13px] lg:text-[16px] "/>
+                    <Input placeholder="Project Github URL" {...field} className="input-field text-primary max-sm:text-[13px] lg:text-[16px] "/>
                   </div>
 
                 </FormControl>
@@ -221,64 +225,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
 
         <div className="flex flex-col gap-5 md:flex-row">
 
-          {/* Hidden Input */}
-
-          {/* <div className="hidden"> 
-            <FormField
-              control={form.control}
-              name="creator" 
-              render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input placeholder="Creator Name" {...field}  className="input-field" type="hidden" />
-                    </FormControl>
-                  </FormItem>
-              )}
-              />
-          </div> 
-
-          <FormField
-                control={form.control}
-                name="creatorName"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                        <Image
-                          src='/assets/icons/link.svg'
-                          alt="link"
-                          width={24}
-                          height={24}
-                          />
-                        <Input placeholder="Creator Name"{...field} className="input-field" />
-                      </div>
-
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-          /> */}
-          {/* <FormField
-                control={form.control}
-                name="creator"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                        <Image
-                          src='/assets/icons/link.svg'
-                          alt="link"
-                          width={24}
-                          height={24}
-                          />
-                        <Input placeholder="Creator Name"{...field} className="input-field" />
-                      </div>
-
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-          /> */}
+  
 
           <FormField
               control={form.control}
@@ -287,12 +234,6 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
                 <FormItem className="w-full">
                   <FormControl>
                     <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                      {/* <Image
-                        src='/assets/icons/link.svg'
-                        alt="link"
-                        width={24}
-                        height={24}
-                      /> */}
                       <Mail className=" text-neutral-500" width={24}
                         height={24} />
                       <Input placeholder="Email Address" {...field} className="input-field max-sm:text-[13px] lg:text-[16px]" />
@@ -312,7 +253,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
         type="submit" 
         size='lg'
         disabled={form.formState.isSubmitting}
-        className="button col-span-2 w-full"
+        className="button col-span-2 w-full bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)]"
         >
           {form.formState.isSubmitting ? (
             <div className="flex items-center justify-center ">

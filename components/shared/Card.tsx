@@ -39,7 +39,7 @@ return (
 
             <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
 
-                <p className='p-semibold-14 w-fit rounded-full  bg-primary-500/90 text-primary-50 px-4 py-1 line-clamp-1'>{project.category.name}</p>
+                <p className='p-semibold-14 w-fit rounded-full  bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] text-primary-50 px-4 py-1 line-clamp-1'>{project.category.name}</p>
 
 
                 <Link href={`/projects/${project._id}`}>

@@ -43,19 +43,19 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
 
           <div className='flex w-full flex-col gap-8 p-5 md:p-10'>
             <div className='flex flex-col gap-6'>
-              <h2 className='h2-bold'>{project.title}</h2>
+              <h2 className='h2-bold uppercase'>{project.title}</h2>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <div className="flex gap-3">
                 
-                    <p className="p-medium-16 rounded-full bg-primary-500/90 text-primary-50 px-4 py-2.5">
+                    <p className="p-medium-16 rounded-full bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] text-primary-50 px-4 py-2.5">
                       {project.category.name}
                     </p>
                 </div>
 
                 <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
                   by{' '}
-                  <span className="text-primary-500">{project.creator.firstName} {project.creator.lastName}</span>
+                  <span className="text-primary-500">{project.creator.firstName}</span>
                 </p>
 
               </div>
@@ -86,7 +86,7 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
 
             <div className="flex items-center gap-2 md:gap-3 mt-4">
 
-              <Button asChild className='bg-primary-500/90 hover:bg-primary-500/100 text-white'>
+              <Button asChild className='bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] hover:bg-primary-500/100 text-white'>
                 <Link href={project.url} target='_blank'> 
                   <Link2 className="mr-2 h-5 w-5" /> Visit
                 </Link>

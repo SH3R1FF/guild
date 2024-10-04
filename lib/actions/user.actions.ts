@@ -59,14 +59,11 @@ try {
 
     // Unlink relationships
     await Promise.all([
-    // Update the 'events' collection to remove references to the user
+    // Update the 'projects' collection to remove references to the user
     Project.updateMany(
         { _id: { $in: userToDelete.events } },
-        { $pull: { organizer: userToDelete._id } }
+        { $pull: { creator: userToDelete._id } }
     ),
-
-    // Update the 'orders' collection to remove references to the user
-    // Order.updateMany({ _id: { $in: userToDelete.orders } }, { $unset: { buyer: 1 } }),
     ])
 
     // Delete user

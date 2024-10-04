@@ -8,14 +8,22 @@ import User from "../database/models/user.model"
 import Category from "../database/models/category.model"
 import { handleError } from "../utils"
 
-import { CreateProjectParams, DeleteProjectParams, GetAllProjectsParams, GetProjectsByUserParams, GetRelatedProjectsByCategoryParams, UpdateProjectParams } from "@/types"
+import { 
+  CreateProjectParams, 
+  DeleteProjectParams, 
+  GetAllProjectsParams, 
+  GetProjectsByUserParams, 
+  GetRelatedProjectsByCategoryParams, 
+  UpdateProjectParams 
+} from "@/types"
+
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: 'i' } })
 }
 
 const populateProject = (query: any) => {
   return query
-    .populate({ path: 'creator', model: User, select: '_id firstName ' })
+    .populate({ path: 'creator', model: User, select: '_id firstName' })
     .populate({ path: 'category', model: Category, select: '_id name' })
 }
 

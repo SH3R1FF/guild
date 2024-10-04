@@ -2,7 +2,7 @@
 export type CreateUserParams = {
     clerkId: string
     firstName: string
-    lastName: string
+    // lastName: string
     username: string
     email: string
     photo: string
@@ -10,7 +10,7 @@ export type CreateUserParams = {
   
   export type UpdateUserParams = {
     firstName: string
-    lastName: string
+    // lastName: string
     username: string
     photo: string
   }
@@ -25,7 +25,7 @@ export type CreateUserParams = {
       categoryId: string
       url: string
       codeUrl: string
-      creator: string
+      // creator: string
       email:string
     }
     path: string
@@ -41,7 +41,7 @@ export type CreateUserParams = {
       categoryId: string
       url: string
       codeUrl: string
-      creator: string
+      // creator: string
       email:string
     }
     path: string
@@ -82,7 +82,7 @@ export type CreateUserParams = {
     creator: {
       _id: string
       firstName: string
-      lastName: string
+      // lastName: string
     }
     category: {
       _id: string
