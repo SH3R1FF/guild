@@ -155,7 +155,7 @@ export async function getRelatedProjectsByCategory({
   categoryId,
   projectId,
   limit = 3,
-  page = 1,
+  page = 1
 }: GetRelatedProjectsByCategoryParams) {
   try {
     await connectToDatabase()
