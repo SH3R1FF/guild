@@ -173,6 +173,9 @@ export async function getRelatedProjectsByCategory({
 
     return { data: JSON.parse(JSON.stringify(projects)), totalPages: Math.ceil(projectsCount / limit) }
   } catch (error) {
-    handleError(error)
+    // handleError(error)
+    console.error('Error fetching related projects:', error);
+    // Return a safe fallback in case of failure
+    return { data: [], totalPages: 0 };
   }
 }

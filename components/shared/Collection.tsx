@@ -39,7 +39,7 @@ const Collection = ({
                         <li key={project._id} className="flex justify-center">
                             <Card project={project} hasCreationLink={hasCreationLink} />
                         </li>
-                    )
+                    ) 
                 })}
                 </ul>
   

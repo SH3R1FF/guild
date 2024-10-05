@@ -21,11 +21,15 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
     year: 'numeric',   // Full year
   });
 
+
   const relatedProjects = await getRelatedProjectsByCategory({
     categoryId: project.category._id,
     projectId: project._id,
-    page: searchParams.page as string,
+    page: searchParams.page as string, 
   })
+  // console.log(page);
+
+  
   
 
   return (
@@ -33,13 +37,19 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
     <section className='flex justify-center bg-primary-50 bg-dotted-pattern bg-contain'>
 
       <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
-          <Image 
-            src={project.imageUrl}
-            alt="hero image"
-            width={1000}
-            height={1000}
-            className="h-full min-h-[300px] object-cover object-center rounded-lg"
-          /> 
+
+          <div className="flex justify-center items-center flex-col lg:my-6 my-0">     
+          {/* <div className="flex justify-center items-center flex-col ">      */}
+            <Image 
+              src={project.imageUrl}
+              alt="hero image"
+              width={1000}
+              height={500}
+              // className="h-full min-h-[300px] object-cover object-center rounded-lg"
+              className="lg:h-[500px] hover:lg:h-[400px] h-[250px] duration-700 object-cover object-center  lg:rounded-3xl cursor-pointer"
+              // className="lg:h-[500px] h-[250px] hover:lg:h-[400px] duration-1000 object-cover object-center rounded-xl cursor-pointer" 
+            />
+          </div>
 
           <div className='flex w-full flex-col gap-8 p-5 md:p-10'>
             <div className='flex flex-col gap-6'>
@@ -114,8 +124,10 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
           emptyTitle="No Related Projects Found"
           emptyStateSubtext="Come back later"
           collectionType="All_Projects"
-          limit={3}
+          limit={6}
           page={searchParams.page as string}
+          // page={1}
+          // urlParamName="relatedProjectsPage"
           totalPages={relatedProjects?.totalPages}
         />
     </section>
