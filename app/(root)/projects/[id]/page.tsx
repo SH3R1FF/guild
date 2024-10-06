@@ -21,16 +21,23 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
     year: 'numeric',   // Full year
   });
 
+  const pageParam = Array.isArray(searchParams.page) ? searchParams.page[0] : searchParams.page;
+
+  const currentPage = pageParam && !isNaN(Number(pageParam))
+    ? parseInt(pageParam, 10)
+    : 1;
 
   const relatedProjects = await getRelatedProjectsByCategory({
     categoryId: project.category._id,
     projectId: project._id,
-    page: searchParams.page as string, 
-  })
-  // console.log(page);
+    page: currentPage,
+    limit: 3,
+  });
 
-  
-  
+  // console.log(searchParams)
+  // console.log(currentPage)
+  // console.log("Current Page:", searchParams.page);
+
 
   return (
     <>
@@ -38,7 +45,7 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
 
       <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
 
-          <div className="flex justify-center items-center flex-col lg:my-6 my-0">     
+          <div className="flex justify-center items-center flex-col lg:my-6 md:my-2 my-0 md:ml-8">     
           {/* <div className="flex justify-center items-center flex-col ">      */}
             <Image 
               src={project.imageUrl}
@@ -46,7 +53,7 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
               width={1000}
               height={500}
               // className="h-full min-h-[300px] object-cover object-center rounded-lg"
-              className="lg:h-[500px] hover:lg:h-[400px] h-[250px] duration-700 object-cover object-center  lg:rounded-3xl cursor-pointer"
+              className="lg:h-[500px] hover:lg:h-[400px] md:h-[525px] md:hover:h-[250px] h-[250px] duration-700 object-cover object-center md:rounded-2xl lg:rounded-3xl cursor-pointer"
               // className="lg:h-[500px] h-[250px] hover:lg:h-[400px] duration-1000 object-cover object-center rounded-xl cursor-pointer" 
             />
           </div>
@@ -124,10 +131,8 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
           emptyTitle="No Related Projects Found"
           emptyStateSubtext="Come back later"
           collectionType="All_Projects"
-          limit={6}
-          page={searchParams.page as string}
-          // page={1}
-          // urlParamName="relatedProjectsPage"
+          limit={3}
+          page={currentPage}
           totalPages={relatedProjects?.totalPages}
         />
     </section>
