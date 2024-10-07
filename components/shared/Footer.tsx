@@ -6,7 +6,7 @@ const gothic = Dela_Gothic_One({ subsets: ['latin'], weight: ['400']  })
 
 const Footer = () => {
   return (
-    <footer className='border-t'>
+    <footer className='border-t dark:bg-neutral-900/90 dark:border-neutral-800'>
       <div className='flex-center wrapper flex-between flex flex-col gap-4 p-5 text-center sm:flex-row '>
         <Link href="/" className="w-fit">
         {/* -#ddfc74 yellowish -#00bb81 greenish */}
@@ -17,7 +17,7 @@ const Footer = () => {
               </div>    
           </Link>
 
-        <p>2025 Guild. All Rights reserved</p>
+        <p className='dark:text-neutral-400'>2025 Guild. All Rights reserved</p>
       </div>
     </footer>
   )

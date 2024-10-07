@@ -54,25 +54,25 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
       <SelectTrigger className="select-field">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="dark:bg-neutral-900 dark:border-none">
         {categories.length > 0 && categories.map((category) => (
-          <SelectItem key={category._id} value={category._id} className="select-item p-regular-14">
+          <SelectItem key={category._id} value={category._id} className="select-item p-regular-14 dark:text-neutral-300">
             {category.name}
           </SelectItem>
         ))}
 
         <AlertDialog>
-          <AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 focus:text-primary-500">Add new category</AlertDialogTrigger>
-          <AlertDialogContent className="bg-white">
+          <AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 dark:hover:bg-neutral-800 focus:text-primary-500">Add new category</AlertDialogTrigger>
+          <AlertDialogContent className="bg-white dark:bg-neutral-900 dark:border-neutral-800">
             <AlertDialogHeader>
               <AlertDialogTitle>New Category</AlertDialogTitle>
               <AlertDialogDescription>
-                <Input type="text" placeholder="Category name" className="input-field mt-3" onChange={(e) => setNewCategory(e.target.value)} />
+                <Input type="text" placeholder="Category name" className="bg-grey-50 dark:bg-neutral-900/90 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 focus-visible:ring-neutral-900 dark:border dark:border-neutral-700 mt-3" onChange={(e) => setNewCategory(e.target.value)} />
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={() => startTransition(handleAddCategory)}>Add</AlertDialogAction>
+              <AlertDialogCancel className="dark:bg-neutral-900 dark:border-neutral-800">Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={() => startTransition(handleAddCategory)} className="bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] text-white px-8">Add</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

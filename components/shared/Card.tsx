@@ -17,7 +17,7 @@ export const Card = ({ project, hasCreationLink }: CardProps) => {
   const isProjectCreator = userId === project.creator._id.toString();
 
 return (
-    <div className='group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]'>
+    <div className='group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white dark:bg-neutral-900/90 dark:border-neutral-800 shadow-md transition-all hover:shadow-lg dark:hover:shadow-neutral-950  md:min-h-[438px]'>
         <Link 
             href={`/projects/${project._id}`}
             style={{ backgroundImage: `url(${project.imageUrl})` }}
@@ -43,7 +43,7 @@ return (
 
 
                 <Link href={`/projects/${project._id}`}>
-                    <p className='p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black'>{project.title}</p>
+                    <p className='p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black dark:text-neutral-200'>{project.title}</p>
                 </Link>
 
 
@@ -53,7 +53,7 @@ return (
                         {project.description}
                     </p>
 
-                    <p className="p-medium-14 md:p-medium-16 text-grey-600 pt-4">
+                    <p className="p-medium-14 md:p-medium-16 text-grey-600 dark:text-neutral-400 pt-4">
                         Created by{' '}
                         <span className='text-primary-500'>
                             {project.creator.firstName}

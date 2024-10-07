@@ -19,14 +19,14 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
   return (
     <>
     {/* Projects Created */}
-        <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
+        <section className="bg-primary-50 dark:bg-neutral-900 dark:border-neutral-800 border-b  bg-cover bg-center py-5 md:py-10">
             <div className="wrapper flex items-center justify-center sm:justify-between">
             <div className="flex items-center gap-3">
                 <BookOpenCheck  className="text-white rounded-md p-2 h-10 w-10 bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)]"/>
                 <h3 className='h3-bold text-center sm:text-left'>Projects Created by Me</h3>
             </div>
 
-                <Button asChild size="lg" className="button hidden sm:flex bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)]">
+                <Button asChild size="lg" className="button hidden sm:flex bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] dark:text-white">
                     <Link href="/projects/add">
                         Create New Project
                     </Link>

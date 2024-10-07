@@ -184,7 +184,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                  <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 dark:bg-neutral-900/80 px-4 py-2">
                     <Image
                       src='/assets/icons/link.svg'
                       alt="link"
@@ -205,7 +205,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                  <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 dark:bg-neutral-900/80 px-4 py-2">
     
                     <Github 
                       className=" text-neutral-500"
@@ -233,7 +233,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                    <div className="flex-center h-[55px] w-full overflow-hidden rounded-full bg-gray-50 dark:bg-neutral-900/80 px-4 py-2">
                       <Mail className=" text-neutral-500" width={24}
                         height={24} />
                       <Input placeholder="Email Address" {...field} className="input-field max-sm:text-[13px] lg:text-[16px]" />
@@ -253,7 +253,7 @@ const ProjectForm = ({ userId, type, project, projectId }: ProjectFormProps ) =>
         type="submit" 
         size='lg'
         disabled={form.formState.isSubmitting}
-        className="button col-span-2 w-full bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)]"
+        className="button col-span-2 w-full bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] dark:text-neutral-300" 
         >
           {form.formState.isSubmitting ? (
             <div className="flex items-center justify-center ">

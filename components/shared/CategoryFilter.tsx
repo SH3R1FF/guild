@@ -51,14 +51,14 @@ const CategoryFilter = () => {
 
     return (
         <Select onValueChange={(value: string) => onSelectCategory(value)}>
-        <SelectTrigger className="select-field">
+        <SelectTrigger className="w-full bg-grey-50 h-[54px] rounded-full p-regular-16 px-5 py-3 dark:border-none dark:focus-visible:ring-black focus:ring-black dark:bg-neutral-900/90 dark:placeholder:text-grey-500 dark:text-grey-500 focus-visible:ring-offset-0">
             <SelectValue placeholder="Category" />
         </SelectTrigger>
-        <SelectContent>
-            <SelectItem value="All" className="select-item p-regular-14">All</SelectItem>
+        <SelectContent className="dark:bg-neutral-900 dark:border-none">
+            <SelectItem value="All" className="select-item p-regular-14 dark:text-neutral-300">All</SelectItem>
 
             {categories.map((category) => (
-            <SelectItem value={category.name} key={category._id} className="select-item p-regular-14">
+            <SelectItem value={category.name} key={category._id} className="select-item p-regular-14 dark:text-neutral-300">
                 {category.name}
             </SelectItem>
             ))}

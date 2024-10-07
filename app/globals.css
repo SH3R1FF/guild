@@ -33,6 +33,7 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+  
   }
 
   .dark {
@@ -206,15 +207,22 @@ body {
 
   /* SHADCN OVERRIDES */
   .select-field {
-    @apply w-full bg-grey-50 h-[54px] placeholder:text-grey-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important;
+    /* @apply w-full bg-grey-50 h-[54px] placeholder:text-grey-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important; */
+    @apply w-full bg-grey-50 h-[54px] placeholder:text-grey-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent dark:bg-neutral-900/90  text-grey-500 focus-visible:ring-offset-0 !important;
+
   }
+
+  /* .input-field {
+    @apply bg-grey-50 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important;
+  } */
 
   .input-field {
-    @apply bg-grey-50 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important;
+    @apply bg-grey-50 dark:bg-neutral-900/80 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important;
   }
 
+
   .textarea {
-    @apply bg-grey-50 flex flex-1 placeholder:text-grey-500 p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent !important;
+    @apply bg-grey-50 dark:bg-neutral-900/80 flex flex-1 placeholder:text-grey-500 p-regular-16 px-5 py-3 border-none focus-visible:ring-offset-0 focus-visible:ring-transparent !important;
   }
 
   .button {
@@ -222,7 +230,7 @@ body {
   }
 
   .select-item {
-    @apply py-3 cursor-pointer  focus:bg-primary-50;
+    @apply py-3 cursor-pointer  focus:bg-primary-50 dark:focus:bg-neutral-800 border-none;
   }
 
   .toggle-switch {
@@ -230,47 +238,132 @@ body {
   }
 }
 
-/* ========================================== CLERK STYLES */
-.cl-logoImage {
-  height: 38px;
+/* ===== custom classes ===== */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  border-radius: 2px;
 }
 
-.cl-userButtonBox {
-  flex-direction: row-reverse;
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #15171c;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #222429;
+  border-radius: 50px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+
+/* ========================================== CLERK STYLES */
+/* .cl-userButtonPopoverCard {
+  background-color: #141414 !important;
+  border: 2px solid #232323 !important;
+  color: #c5d0e6 !important;
+}
+
+.cl-userButtonPopoverCard p,
+.cl-userButtonPopoverCard a,
+.cl-userButtonPopoverCard h1,
+.cl-userButtonPopoverCard h2,
+.cl-userButtonPopoverCard h3,
+.cl-userButtonPopoverCard h4,
+.cl-userButtonPopoverCard h5,
+.cl-userButtonPopoverCard h6,
+.cl-userButtonPopoverCard .text-class,
+.cl-userButtonPopoverCard .some-class {
+  color: #c5d0e6 !important;
+} */
+
+.cl-avatar {
+  border: 2px solid #232323 !important;
+}
+
+.cl-signOutButton {
+  background-color: #141414 !important;
+  border: 2px solid #232323 !important;
+  color: #c5d0e6 !important;
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+.cl-signOutButton:hover {
+  background-color: #232323 !important;
+  color: #ffffff !important;
+}
+
+.cl-userButtonPopoverCardItem {
+  background-color: #141414 !important;
+  color: #c5d0e6 !important;
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+.cl-popoverHeader, .cl-popoverFooter {
+  background-color: #141414 !important;
+  color: #c5d0e6 !important;
+}
+
+.cl-popoverCloseButton {
+  color: #c5d0e6 !important;
 }
 
 .cl-userButtonOuterIdentifier {
-  font-size: 16px;
-}
-
-.cl-userButtonPopoverCard {
-  right: 4px !important;
+  font-size: 16px !important;
+  color: inherit !important;
 }
 
 .cl-formButtonPrimary:hover,
 .cl-formButtonPrimary:focus,
 .cl-formButtonPrimary:active {
-  background-color: #705CF7
+  background-color: #394ee7 !important;
 }
 
-/* ========================================== REACT-DATEPICKER STYLES */
-.datePicker {
-  width: 100%;
+.cl-socialButtonsIconButton {
+  border: 2px solid #232323 !important;
 }
 
-.react-datepicker__input-container input {
-  background-color: transparent;
-  width: 100%;
-  outline: none;
-  margin-left: 16px;
+.cl-socialButtonsProviderIcon__github {
+  filter: invert(1) !important;
 }
 
-.react-datepicker__day--selected {
-  background-color: #624cf5 !important;
-  color: #ffffff !important;
-  border-radius: 4px;
+.cl-formButtonPrimary {
+  background-color: #4659ea !important;
 }
 
-.react-datepicker__time-list-item--selected {
-  background-color: #624cf5 !important;
+.cl-footerActionLink {
+  color: #4659ea !important;
 }
+
+.cl-headerSubtitle {
+  color: #c5d0e6 !important;
+}
+
+.cl-logoImage {
+  width: 10rem !important;
+  height: 3rem !important;
+}
+
+.cl-userButtonPopoverActionButtonIcon {
+  color: #4659ea !important;
+}
+
+.cl-internal-wkkub3 {
+  color: #4659ea !important;
+}
+
+

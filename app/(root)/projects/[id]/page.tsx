@@ -41,7 +41,7 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
 
   return (
     <>
-    <section className='flex justify-center bg-primary-50 bg-dotted-pattern bg-contain'>
+    <section className='flex justify-center bg-primary-50 dark:bg-neutral-900 bg-contain border-b dark:border-neutral-800'>
 
       <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
 
@@ -70,9 +70,9 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
                     </p>
                 </div>
 
-                <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
+                <p className="p-medium-18 ml-2 mt-2 sm:mt-0 dark:text-neutral-400">
                   by{' '}
-                  <span className="text-primary-500">{project.creator.firstName}</span>
+                  <span className="text-primary-500 ml-1">{project.creator.firstName}</span>
                 </p>
 
               </div>
@@ -81,15 +81,17 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
             <div className="flex flex-col gap-5">
               <div className='flex gap-2 md:gap-3 items-center'>
           
-                <Clock color="#4252cd" width={22} height={22} className='h-[20px] w-[20px]'/>
-                <div className="p-medium-14  lg:p-regular-18">
+                {/* <Clock color="#4252cd" width={22} height={22} className='h-[20px] w-[20px] dark:h-[32px] dark:w-[32px] dark:p-2 dark:bg-neutral-800 dark:rounded-lg'/> */}
+                <Clock color="#4252cd" width={22} height={22} className='h-[32px] w-[32px] p-2 bg-neutral-200 dark:bg-neutral-800 rounded-lg'/>
+                <div className="p-medium-14  lg:p-regular-18 text-neutral-500">
                   <p>Created at {formattedDate}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 md:gap-3">
-                <Mail color="#4252cd" width={22} height={22} className='h-[20px] w-[20px]'/>
-                <div className="p-medium-14 lg:p-regular-18">
+                {/* <Mail color="#4252cd" width={22} height={22} className='h-[20px] w-[20px] dark:h-[32px] dark:w-[32px] dark:p-2 dark:bg-neutral-800 dark:rounded-lg'/> */}
+                <Mail color="#4252cd" width={22} height={22} className='h-[32px] w-[32px] p-2 bg-neutral-200 dark:bg-neutral-800 rounded-lg'/>
+                <div className="p-medium-14 lg:p-regular-18 dark:text-neutral-300">
                   <p>{project.email}</p>
                 </div>
               </div>
@@ -97,19 +99,20 @@ const ProjectDetails = async ({ params: { id }, searchParams}: SearchParamProps)
 
 
             <div className="flex flex-col gap-2">
-              <p className="p-bold-20 text-grey-600">What You'll Discover:</p>
-              <p className="p-medium-16 lg:p-regular-18 ">{project.description}</p>
+              <p className="p-bold-20 dark:text-neutral-500">What You'll Discover:</p>
+              <p className="p-medium-16 lg:p-regular-18 dark:text-neutral-200 ">{project.description}</p>
             </div>
 
             <div className="flex items-center gap-2 md:gap-3 mt-4">
 
-              <Button asChild className='bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] hover:bg-primary-500/100 text-white'>
+              <Button asChild className='bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] text-white'>
                 <Link href={project.url} target='_blank'> 
                   <Link2 className="mr-2 h-5 w-5" /> Visit
                 </Link>
               </Button>
 
-              <Button asChild className='bg-neutral-800 hover:bg-neutral-700 text-white'>
+
+              <Button asChild className='bg-neutral-800 hover:bg-neutral-800/90  dark:hover:bg-neutral-800/70 text-white'>
                 <Link href={project.codeUrl} target='_blank'>
                   <Github className="mr-2 h-5 w-5" /> Code
                 </Link>
