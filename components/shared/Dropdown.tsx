@@ -102,7 +102,7 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
               <Input
                 type="text"
                 placeholder="Category name"
-                className="bg-grey-50 dark:bg-neutral-900/90 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 focus-visible:ring-neutral-900 dark:border dark:border-neutral-700 mt-3"
+                className="bg-grey-50 dark:bg-neutral-900 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500  dark:text-neutral-300 rounded-full p-regular-16 px-4 py-3 focus-visible:ring-neutral-900 dark:border dark:border-neutral-800 mt-3"
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)}
                 autoFocus
