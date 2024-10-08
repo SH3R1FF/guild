@@ -7,7 +7,7 @@ const AddProject = () => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
-  console.log('User ID:', userId);
+  // console.log('User ID:', userId);
 
   return (
     <>

@@ -27,9 +27,9 @@ const MobileNav = () => {
           width={24}
           height={24}
           className="cursor-pointer"
-          />
+        />
       </SheetTrigger>
-      <SheetContent className="flex flex-col gap-6 bg-white md:hidden ">
+      <SheetContent className="flex flex-col gap-6 bg-white dark:bg-neutral-900 dark:border-neutral-800 md:hidden ">
         <SheetTitle className="hidden" />  
         <Link href="/" className="w-fit">
               <div className="flex items-center justify-center bg-[radial-gradient(100%_100%_at_top_left,#624cf5,#3634c7,#624cf5)] lg:text-3xl text-3xl font-bold text-white rounded-md px-3 py-1"> 
@@ -38,7 +38,7 @@ const MobileNav = () => {
                 </p>
               </div>    
         </Link>
-        <Separator className="border border-gray-50 "/>
+        <Separator className="border border-gray-50 dark:border-stone-900"/>
         <SheetDescription className="hidden"/>
         <NavItems/>
       </SheetContent>
