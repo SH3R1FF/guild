@@ -31,7 +31,7 @@ const Header = () => {
   const currentTheme = theme === 'system ' ? systemTheme : theme;
 
   return (
-    <header className='w-full border-b dark:bg-neutral-900/90 dark:border-neutral-800'>
+    <header className='w-full border-b dark:bg-neutral-900 dark:border-neutral-800'>
       <div className="wrapper flex items-center justify-between">
         <Link href="/" className="w-fit">
       {/* -#ddfc74 yellowish -#00bb81 greenish */}
@@ -48,9 +48,9 @@ const Header = () => {
           </nav> 
         </SignedIn>
 
-        <div className="flex w-32 justify-end gap-3 ">
+        <div className="flex w-32 justify-end gap-3">
             {currentTheme === 'light' ? (
-              <button onClick={() => setTheme('dark')} className='px-4 bg-primary-50 hover:bg-neutral-200 rounded-full border text-neutral-700'>
+              <button onClick={() => setTheme('dark')} className='px-2 bg-primary-50 hover:bg-neutral-200 rounded-full border text-neutral-700'>
                <MoonIcon 
                className='h-4 w-4'
                />
@@ -58,7 +58,7 @@ const Header = () => {
               ) 
 
             :(
-              <button onClick={() => setTheme('light')} className='px-4  bg-neutral-900 hover:bg-neutral-800/80 hover:bg rounded-full border dark:border-neutral-800'>
+              <button onClick={() => setTheme('light')} className='px-2 bg-neutral-900 hover:bg-neutral-800/80 hover:bg rounded-full border dark:border-neutral-800'>
                 <SunIcon 
                 className='h-4 w-4'
                 />
